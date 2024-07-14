@@ -18,3 +18,12 @@ variable "tag_names" {
         env = "dev"
     }
 }
+
+##route53 variables
+variable "zone_id" {
+    default = "Z06957992WGSX3IFCABOD"
+}
+
+variable "domain_name" {
+    default = "vijayganisetti.online"
+}
