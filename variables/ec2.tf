@@ -25,7 +25,7 @@ resource "aws_security_group" "allow_ssh" {
 
 }
 resource "aws_instance" "foo" {
-  ami           = "ami-0285bdbfc6d119229"
+  ami           = var.image_id ##calling varaible here
   instance_type = "t2.micro"
   vpc_security_group_ids= [aws_security_group.allow_ssh.id] ## when we are creating instance vpc we must declare this 
   # vpc_security_group_ids = [security grp time . security grp name . id]

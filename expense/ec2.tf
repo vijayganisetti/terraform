@@ -24,14 +24,19 @@ resource "aws_security_group" "allow_ssh" {
   }
 
 }
-resource "aws_instance" "foo" {
+resource "aws_instance" "expense" {
+  count = length(var.instance_names)
   ami           = "ami-0285bdbfc6d119229"
-  instance_type = "t2.micro"
+  instance_type = var.instance_names[count.index] == "db" ? "t3.small" : "t3.micro"
   vpc_security_group_ids= [aws_security_group.allow_ssh.id] ## when we are creating instance vpc we must declare this 
   # vpc_security_group_ids = [security grp time . security grp name . id]
-  tags = {
-    Name = "db"
-  }
+  tags =  merge (
+    var.common_tags,
+    {
+        name = var.instance_names[count.index]
+        module= var.instance_names[count.index]
+    }
+  )
 }
 
 #success
